@@ -42,11 +42,12 @@ jobs:
         go get -v -t -d ./...
 
     - name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        registry: cr-hn-1.vccloud.vn
-        username: APPCRED_34d3c157d2de499eb6a39ab85945e7bd
-        password: DmfebiHV6b5aFJ0AD9g9z3m9rGqgFMz95ClAH-wb5WNZH3QYZnm3NzTwa_TtST0QqY4H-AywMHECzsmg6mfISA
+      # uses: docker/login-action@v1
+      run: |
+         docker login APPCRED_34d3c157d2de499eb6a39ab85945e7bd -p DmfebiHV6b5aFJ0AD9g9z3m9rGqgFMz95ClAH-wb5WNZH3QYZnm3NzTwa_TtST0QqY4H-AywMHECzsmg6mfISA cr-hn-1.bizflycloud.vn
+        # registry: cr-hn-1.vccloud.vn
+        # username: APPCRED_34d3c157d2de499eb6a39ab85945e7bd
+        # password: DmfebiHV6b5aFJ0AD9g9z3m9rGqgFMz95ClAH-wb5WNZH3QYZnm3NzTwa_TtST0QqY4H-AywMHECzsmg6mfISA
 
     - name: Test
       run: make build.push/multiarch
