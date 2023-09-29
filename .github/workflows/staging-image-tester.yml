@@ -20,6 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    - name: Remove unnecessary files
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
+
     - name: Set up Go 1.x
       uses: actions/setup-go@v4
       with:
@@ -33,12 +40,6 @@ jobs:
       run: |
         go get -v -t -d ./...
 
-    - name: Remove unnecessary files
-      run: |
-        sudo rm -rf /usr/share/dotnet
-        sudo rm -rf /opt/ghc
-        sudo rm -rf "/usr/local/share/boost"
-        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
     - name: Test
       run: make build.image/multiarch
