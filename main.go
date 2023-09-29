@@ -41,6 +41,7 @@ import (
 	"sigs.k8s.io/external-dns/provider/aws"
 	"sigs.k8s.io/external-dns/provider/awssd"
 	"sigs.k8s.io/external-dns/provider/azure"
+	"sigs.k8s.io/external-dns/provider/bizflycloud"
 	"sigs.k8s.io/external-dns/provider/bluecat"
 	"sigs.k8s.io/external-dns/provider/civo"
 	"sigs.k8s.io/external-dns/provider/cloudflare"
@@ -386,6 +387,8 @@ func main() {
 		r, err = registry.NewTXTRegistry(p, cfg.TXTPrefix, cfg.TXTSuffix, cfg.TXTOwnerID, cfg.TXTCacheInterval, cfg.TXTWildcardReplacement, cfg.ManagedDNSRecordTypes, cfg.TXTEncryptEnabled, []byte(cfg.TXTEncryptAESKey))
 	case "aws-sd":
 		r, err = registry.NewAWSSDRegistry(p.(*awssd.AWSSDProvider), cfg.TXTOwnerID)
+	case "bizflycloud":
+		p, err = bizflycloud.NewBizflyCloudProvider(ctx, domainFilter, zoneIDFilter, cfg.DryRun, cfg.BizflyCloudRegion, cfg.BizflyCloudAPIPageSize)
 	default:
 		log.Fatalf("unknown registry: %s", cfg.Registry)
 	}
