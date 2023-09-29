@@ -214,7 +214,6 @@ func (p *BizflyCloudProvider) Records(ctx context.Context) ([]*endpoint.Endpoint
 				endpoints = append(endpoints, ep)
 			}
 		}
-
 	}
 	return endpoints, nil
 }
