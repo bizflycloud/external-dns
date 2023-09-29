@@ -372,6 +372,8 @@ func main() {
 		p, err = plural.NewPluralProvider(cfg.PluralCluster, cfg.PluralProvider)
 	case "tencentcloud":
 		p, err = tencentcloud.NewTencentCloudProvider(domainFilter, zoneIDFilter, cfg.TencentCloudConfigFile, cfg.TencentCloudZoneType, cfg.DryRun)
+	case "bizflycloud":
+		p, err = bizflycloud.NewBizflyCloudProvider(ctx, domainFilter, zoneIDFilter, cfg.DryRun, cfg.BizflyCloudRegion, cfg.BizflyCloudAPIPageSize)
 	default:
 		log.Fatalf("unknown dns provider: %s", cfg.Provider)
 	}
@@ -387,8 +389,6 @@ func main() {
 		r, err = registry.NewTXTRegistry(p, cfg.TXTPrefix, cfg.TXTSuffix, cfg.TXTOwnerID, cfg.TXTCacheInterval, cfg.TXTWildcardReplacement, cfg.ManagedDNSRecordTypes, cfg.TXTEncryptEnabled, []byte(cfg.TXTEncryptAESKey))
 	case "aws-sd":
 		r, err = registry.NewAWSSDRegistry(p.(*awssd.AWSSDProvider), cfg.TXTOwnerID)
-	case "bizflycloud":
-		p, err = bizflycloud.NewBizflyCloudProvider(ctx, domainFilter, zoneIDFilter, cfg.DryRun, cfg.BizflyCloudRegion, cfg.BizflyCloudAPIPageSize)
 	default:
 		log.Fatalf("unknown registry: %s", cfg.Registry)
 	}

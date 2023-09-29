@@ -109,6 +109,9 @@ func NewBizflyCloudProvider(ctx context.Context, domainFilter endpoint.DomainFil
 		return nil, fmt.Errorf("no BFC_APP_CREDENTIAL_SECRET found")
 	}
 	client, err := bizflycloud.NewClient(bizflycloud.WithRegionName(region))
+	if err != nil {
+		return nil, err
+	}
 	token, err := client.Token.Create(ctx, &bizflycloud.TokenCreateRequest{AuthMethod: "application_credential", AppCredID: appCredID, AppCredSecret: appCredSecret})
 
 	if err != nil {
