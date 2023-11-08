@@ -37,7 +37,7 @@ spec:
     spec:
       containers:
       - name: external-dns
-        image: registry.k8s.io/external-dns/external-dns:v0.13.6
+        image: cr-hn-1.bizflycloud.vn/31ff9581861a4d0ea4df5e7dda0f665d/external-dns:v0.13.5-18-bfc
         args:
         - --source=service # ingress is also possible
         - --domain-filter=example.com # (optional) limit to only example.com domains
