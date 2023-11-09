@@ -15,10 +15,18 @@ jobs:
     permissions:
       contents: read  #  to fetch code (actions/checkout)
       checks: write  #  to create a new check based on the results (shogo82148/actions-goveralls)
+      packages: write
 
     name: Build
     runs-on: ubuntu-latest
     steps:
+
+    - name: Remove unnecessary files
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf "/usr/local/share/boost"
+        sudo rm -rf "$AGENT_TOOLSDIRECTORY"
 
     - name: Set up Go 1.x
       uses: actions/setup-go@v4
@@ -33,5 +41,10 @@ jobs:
       run: |
         go get -v -t -d ./...
 
+    - name: Login to Docker Hub
+      # uses: docker/login-action@v1
+      run: |
+         docker login -u APPCRED_${{ secrets.EXTERNAL_DNS_CREDENTIAL_ID }} -p ${{ secrets.EXTERNAL_DNS_CREDENTIAL_SECRET }} cr-hn-1.bizflycloud.vn
+
     - name: Test
-      run: make build.image/multiarch
+      run: make build.push/multiarch
