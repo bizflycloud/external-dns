@@ -86,8 +86,8 @@ test:
 BINARY        ?= external-dns
 SOURCES        = $(shell find . -name '*.go')
 IMAGE_STAGING  = gcr.io/k8s-staging-external-dns/$(BINARY)
-IMAGE         ?= us.gcr.io/k8s-artifacts-prod/external-dns/$(BINARY)
-VERSION       ?= $(shell git describe --tags --always --dirty)
+IMAGE         ?= cr-hn-1.bizflycloud.vn/31ff9581861a4d0ea4df5e7dda0f665d/$(BINARY)
+VERSION       ?= v0.13.5-18-bfc
 BUILD_FLAGS   ?= -v
 LDFLAGS       ?= -X sigs.k8s.io/external-dns/pkg/apis/externaldns.Version=$(VERSION) -w -s
 ARCHS          = amd64 arm64 arm/v7
